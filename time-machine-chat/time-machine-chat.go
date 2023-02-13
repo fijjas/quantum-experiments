@@ -4,8 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/itsubaki/q"
-	"github.com/itsubaki/q/math/matrix"
-	"github.com/itsubaki/q/math/rand"
+	"strconv"
 )
 
 type TimeTunnel struct {
@@ -19,18 +18,30 @@ type QMessage struct {
 }
 
 // MsgLength must be a dimension of integer logarithm
-const MsgLength = 32
+const MsgLength = 16
 
 func main() {
 	qs := q.New()
-	qs.Rand = rand.Math
+	// dbg: superposition measurements
+	//qs.Rand = rand.Math
+	//
+	//timeArrowSim := qs.Zero()
+	//qs.H(timeArrowSim)
+	//
+	//measured := qs.Measure(timeArrowSim)
+	//fmt.Println("Measured", measured)
+	// test OK
 
-	timeArrowSim := qs.Zero()
-	qs.H(timeArrowSim)
+	// dbg: encoder
+	var message = "Hello, world!"
 
-	qs.Measure(timeArrowSim)
+	qMsg, err := quantumEncode(qs, message)
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
 
-	fmt.Println("Measured", timeArrowSim)
+	fmt.Println("qMessage: ", qMsg)
 }
 
 func createTransport(qs *q.Q) TimeTunnel {
@@ -75,29 +86,36 @@ func quantumEncode(qs *q.Q, msg string) (*QMessage, error) {
 		return nil, errors.New("invalid message length")
 	}
 
-	fixedLengthStr := fmt.Sprintf("%-32s", msg)
+	fixedLengthStr := fmt.Sprintf("%-"+strconv.Itoa(MsgLength)+"s", msg)
+	fmt.Printf("Fixed length message: '%s'\n", fixedLengthStr)
 
 	runes := []rune(fixedLengthStr)
+	fmt.Println("Runes: ", runes)
 
 	normalizedAmplitudeVector := make([]float64, len(runes))
 
 	for i, r := range runes {
 		normalizedAmplitudeVector[i] = float64(r) / 255
 	}
+	fmt.Println("normalizedAmplitudeVector: ", normalizedAmplitudeVector)
 
-	ampVector := qs.ZeroLog2(MsgLength)
+	var ampVectorN = safeIntSqrt(MsgLength, MsgLength)
+	if ampVectorN == nil {
+		return nil, errors.New("invalid intSqrt argument")
+	}
 
-	// TODO: figure out how to apply...
+	ampVector := qs.ZeroWith(*ampVectorN)
+	fmt.Println("ampVector (init)", ampVector)
 
-	initializationMatrix := matrix.Matrix{}
+	for _, qubit := range ampVector {
+		// TODO - apply amp vector coords
+	}
 
-	qs.Apply(initializationMatrix, ampVector...)
+	qs.H(ampVector...)
 
 	qm := QMessage{
 		payload: ampVector,
 	}
-
-	qs.H(ampVector...)
 
 	return &qm, nil
 }
@@ -111,4 +129,13 @@ func quantumDecode(qs *q.Q, qMessage QMessage) string {
 	//  - transform
 
 	return "implement me"
+}
+
+func safeIntSqrt(val int, max int) *int {
+	for i := 0; i < max; i++ {
+		if i*i == val {
+			return &i
+		}
+	}
+	return nil
 }
