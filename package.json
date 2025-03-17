@@ -1,0 +1,12 @@
+{
+  "name": "quantum-experiments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fijjas/quantum-experiments.git"
+  },
+  "private": true,
+  "type": "module"
+}
