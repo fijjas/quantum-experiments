@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Time Messaging System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quantum Time Messaging System</h1>
+            <p class="subtitle">Modeling Quantum Delayed Choice Experiments</p>
+        </header>
+
+        <div class="main-content">
+            <div class="control-panel">
+                <div class="message-input-section">
+                    <h2>Send Message</h2>
+                    <div class="input-group">
+                        <textarea id="messageInput" placeholder="Enter a message to transmit through time..."></textarea>
+                        <button id="sendButton" class="primary-button">Send Message</button>
+                    </div>
+                </div>
+
+                <div class="parameters-section">
+                    <h2>Hidden Parameters</h2>
+                    <div class="presets">
+                        <button class="preset-button" data-preset="balanced">Balanced</button>
+                        <button class="preset-button" data-preset="highAccuracy">High Accuracy</button>
+                        <button class="preset-button" data-preset="highSpeed">High Speed</button>
+                        <button class="preset-button" data-preset="experimental">Experimental</button>
+                    </div>
+
+                    <div class="parameters-sliders">
+                        <div class="parameter-group">
+                            <label for="predeterminationFactor">Predetermination Factor</label>
+                            <input type="range" id="predeterminationFactor" min="0" max="1" step="0.01" value="0.95">
+                            <span class="parameter-value">0.95</span>
+                        </div>
+
+                        <div class="parameter-group">
+                            <label for="temporalCorrelation">Temporal Correlation</label>
+                            <input type="range" id="temporalCorrelation" min="0" max="1" step="0.01" value="0.9">
+                            <span class="parameter-value">0.9</span>
+                        </div>
+
+                        <div class="parameter-group">
+                            <label for="timeEntanglement">Time Entanglement</label>
+                            <input type="range" id="timeEntanglement" min="0" max="1" step="0.01" value="0.85">
+                            <span class="parameter-value">0.85</span>
+                        </div>
+
+                        <div class="parameter-group">
+                            <label for="consistencyParameter">Consistency Parameter</label>
+                            <input type="range" id="consistencyParameter" min="0" max="1" step="0.01" value="0.98">
+                            <span class="parameter-value">0.98</span>
+                        </div>
+
+                        <div class="parameter-group">
+                            <label for="redundancyFactor">Redundancy Factor</label>
+                            <input type="range" id="redundancyFactor" min="1" max="5" step="1" value="2">
+                            <span class="parameter-value">2</span>
+                        </div>
+                    </div>
+
+                    <button id="updateParametersButton" class="secondary-button">Update Parameters</button>
+                </div>
+            </div>
+
+            <div class="visualization-section">
+                <h2>Quantum Transmission Visualization</h2>
+                <div class="visualization-container">
+                    <div class="quantum-visualization">
+                        <div class="experiment-animation">
+                            <div class="beam-splitter first-splitter"></div>
+                            <div class="beam-splitter second-splitter"></div>
+                            <div class="photon"></div>
+                            <div class="detector detector-0"></div>
+                            <div class="detector detector-1"></div>
+                            <div class="path path-0"></div>
+                            <div class="path path-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="transmission-status">
+                        <div class="status-indicator">Ready for transmission</div>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transmission-results">
+                    <div class="result-panel">
+                        <h3>Original Message</h3>
+                        <div id="originalMessage" class="message-display"></div>
+                    </div>
+
+                    <div class="result-panel">
+                        <h3>Decoded Message</h3>
+                        <div id="decodedMessage" class="message-display"></div>
+                    </div>
+
+                    <div class="accuracy-display">
+                        <span>Transmission Accuracy: </span>
+                        <span id="accuracyValue">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="experiment-details">
+            <h2>Experiment Details</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="bits">Bits</button>
+                <button class="tab-button" data-tab="log">Log</button>
+                <button class="tab-button" data-tab="analysis">Analysis</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="bitsTab" class="tab-pane active">
+                    <div class="bits-container">
+                        <div class="bits-section">
+                            <h3>Original Bits</h3>
+                            <div id="originalBits" class="bits-display"></div>
+                        </div>
+
+                        <div class="bits-section">
+                            <h3>Redundant Bits</h3>
+                            <div id="redundantBits" class="bits-display"></div>
+                        </div>
+
+                        <div class="bits-section">
+                            <h3>Experiment Results</h3>
+                            <div id="experimentResults" class="bits-display"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="logTab" class="tab-pane">
+                    <div class="log-container">
+                        <table id="experimentLog" class="log-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Message</th>
+                                    <th>Accuracy</th>
+                                    <th>Parameters</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Log rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="analysisTab" class="tab-pane">
+                    <div class="analysis-container">
+                        <div class="parameter-impact">
+                            <h3>Parameter Impact on Transmission Accuracy</h3>
+                            <div id="parameterImpactChart" class="chart-container"></div>
+                        </div>
+
+                        <div class="recommendations">
+                            <h3>Optimization Recommendations</h3>
+                            <ul id="recommendationsList" class="recommendations-list">
+                                <!-- Recommendations will be inserted here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-section">
+            <h2>How It Works</h2>
+            <div class="explanation-content">
+                <p>This system models information transmission "back in time" using quantum delayed choice experiments. Each bit of information is encoded as a separate quantum experiment, where the choice of measurement type (presence or absence of the second beam splitter) determines the bit value.</p>
+
+                <p>In the classic delayed choice experiment, the decision about the measurement method is made after the particle has "decided" its path. This demonstrates the strange property of quantum mechanics: future events can influence past ones.</p>
+
+                <p>In our model, we use hidden parameters to control this process and ensure predictable information transmission. You can adjust these parameters and observe how they affect transmission accuracy.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Quantum Time Messaging System</p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
